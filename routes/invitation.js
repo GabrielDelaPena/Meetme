@@ -9,13 +9,8 @@ router.post(
 );
 
 router.get(
-  "/getInvitationsBySender/:senderID",
-  invitationController.getInvitationsBySender
-);
-
-router.get(
-  "/getInvitationsByReceiver/:receiverID",
-  invitationController.getInvitationsByReceiver
+  "/getInvitationsByUser/:userID",
+  invitationController.getInvitationsByUser
 );
 
 router.get(

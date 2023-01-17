@@ -9,7 +9,6 @@ exports.register = async (req, res) => {
   const lastname = req.body.lastname;
   const email = req.body.email;
   const password = req.body.password;
-  const friends = [];
 
   const userExist = await User.findOne({ email: email });
   if (userExist) {
@@ -24,7 +23,6 @@ exports.register = async (req, res) => {
     lastname: lastname,
     email: email,
     password: hashedPassword,
-    friends: friends,
   });
 
   try {

@@ -6,7 +6,6 @@ const dotenv = require("dotenv");
 // Routes
 const userRoute = require("./routes/user");
 const invitationRoute = require("./routes/invitation");
-const meetupRoute = require("./routes/meetup");
 
 // Configurations
 const app = express();
@@ -21,7 +20,6 @@ app.get("/", async (req, res) => {
 });
 app.use("/api/user", userRoute);
 app.use("/api/invitation", invitationRoute);
-app.use("/api/meetup", meetupRoute);
 
 // MongoDB Connection
 app.listen(PORT, () => {
