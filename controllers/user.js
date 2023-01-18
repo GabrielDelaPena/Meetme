@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // REGISTER
@@ -39,20 +38,21 @@ exports.login = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    return res.status(400).send("Email or Password invalid.");
-  }
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).send("Email or Password invalid.");
+    }
 
-  const isEqual = await bcrypt.compare(password, user.password);
-  if (!isEqual) {
-    return res.status(400).send("Email or Password invalid.");
+    const isEqual = await bcrypt.compare(password, user.password);
+    if (!isEqual) {
+      return res.status(400).send("Email or Password invalid.");
+    }
+    res.status(200).send(user._id);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error Server Side.");
   }
-
-  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
-    expiresIn: "1h",
-  });
-  res.status(200).json({ token: token, userID: user._id });
 };
 
 // UPDATE PASSWORD
