@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const invitationSchema = new Schema(
   {
-    users: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    sender: {
+      type: String,
+      required: true,
+    },
+    receiver: {
+      type: String,
+      required: true,
+    },
     lat: {
       type: Number,
       required: true,

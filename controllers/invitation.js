@@ -2,22 +2,22 @@ const Invitation = require("../models/Invitation");
 const User = require("../models/User");
 
 exports.createInvitation = async (req, res) => {
-  const users = req.body.users;
+  const sender = req.body.sender;
+  const receiver = req.body.receiver;
   const lat = req.body.lat;
   const lon = req.body.lon;
   const date = req.body.date;
   const description = req.body.description;
   const location = req.body.location;
-  const accepted = false;
 
   const invitation = new Invitation({
-    users: users,
+    sender: sender,
+    receiver: receiver,
     lat: lat,
     lon: lon,
     date: date,
     description: description,
     location: location,
-    accepted: accepted,
   });
 
   try {
@@ -50,9 +50,7 @@ exports.getInvitationByID = async (req, res) => {
   const invitationID = req.params.invitationID;
 
   try {
-    const invitation = await Invitation.findOne({ _id: invitationID }).populate(
-      "users"
-    );
+    const invitation = await Invitation.findOne({ _id: invitationID });
     if (!invitation) {
       return res.status(400).send("Invitation not found.");
     }
@@ -65,12 +63,12 @@ exports.getInvitationByID = async (req, res) => {
 };
 
 exports.getInvitationsByUser = async (req, res) => {
-  const userID = req.params.userID;
+  const firstname = req.params.firstname;
 
   try {
     const invitations = await Invitation.find({
-      users: { $in: [userID] },
-    }).populate("users");
+      $or: [{ sender: firstname }, { receiver: firstname }],
+    });
     if (!invitations) {
       return res.status(400).send("User has no such invitations.");
     }
