@@ -11,4 +11,6 @@ router.post("/deleteUser", userController.deleteUser);
 
 router.get("/", userController.getAllUsers);
 
+router.get("/getUserByEmail/:email", userController.getUserByEmail);
+
 module.exports = router;

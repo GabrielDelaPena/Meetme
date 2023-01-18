@@ -55,6 +55,22 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.getUserByEmail = async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).send("User not found.");
+    }
+
+    res.status(200).send(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error Server Side.");
+  }
+};
+
 // UPDATE PASSWORD
 exports.updatePassword = async (req, res) => {
   const email = req.body.email;
