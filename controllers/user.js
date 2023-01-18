@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
     if (!isEqual) {
       return res.status(400).send("Email or Password invalid.");
     }
-    res.status(200).send(user.firstname);
+    res.status(200).send(user.email);
   } catch (error) {
     console.log(error);
     res.status(500).send("Error Server Side.");
