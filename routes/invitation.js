@@ -9,7 +9,7 @@ router.post(
 );
 
 router.get(
-  "/getInvitationsByUser/:firstname",
+  "/getInvitationsByUser/:email",
   invitationController.getInvitationsByUser
 );
 

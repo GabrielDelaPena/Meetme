@@ -63,11 +63,11 @@ exports.getInvitationByID = async (req, res) => {
 };
 
 exports.getInvitationsByUser = async (req, res) => {
-  const firstname = req.params.firstname;
+  const email = req.params.email;
 
   try {
     const invitations = await Invitation.find({
-      $or: [{ sender: firstname }, { receiver: firstname }],
+      $or: [{ sender: email }, { receiver: email }],
     });
     if (!invitations) {
       return res.status(400).send("User has no such invitations.");
